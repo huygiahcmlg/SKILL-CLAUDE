@@ -1,0 +1,9 @@
+{
+  "name": "seo-tools",
+  "description": "Bộ công cụ SEO tích hợp SerpAPI - tạo Content Brief chuyên sâu cho thị trường Việt Nam",
+  "author": {
+    "name": "Claude Code",
+    "email": "huygiahcmlg@gmail.com"
+  },
+  "version": "1.0.0"
+}
