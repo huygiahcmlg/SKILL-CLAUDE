@@ -17,6 +17,7 @@ Nghiên cứu từ khóa hàng loạt từ một seed keyword bằng cách khai 
 ## Tài Liệu Tham Khảo
 - `references/intent-signals.md` — Bảng phân loại intent + tín hiệu nhận diện
 - `references/keyword-research-template.md` — Template output hoàn chỉnh
+- `examples/output-lavabo.md` — Ví dụ output hoàn chỉnh cho seed keyword "lavabo"
 
 ---
 
