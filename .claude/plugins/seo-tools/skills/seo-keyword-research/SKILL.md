@@ -25,6 +25,7 @@ Nghiên cứu từ khóa hàng loạt từ một seed keyword bằng cách khai 
 
 ```bash
 echo "${SERPAPI_KEY:0:5}..."
+WORK_DIR=$(python3 -c "import tempfile; print(tempfile.gettempdir())")
 ```
 
 **Nếu key rỗng:** Hướng dẫn thêm `SERPAPI_KEY` vào `~/.claude/settings.json` và restart Claude Code.
@@ -87,12 +88,9 @@ Script sẽ gọi autocomplete cho 8 query variants:
 Gọi SERP thực để hiểu mức độ cạnh tranh:
 
 ```bash
-bash ".claude/plugins/seo-tools/skills/seo-content-brief/scripts/fetch-serp.sh" \
-  "SEED_KEYWORD_HERE" \
-  "Vietnam" \
-  "vi" \
-  "vn" \
-  "10" > "D:/CLAUDE - LE/kw-research-serp.json"
+PYTHONIOENCODING=utf-8 python3 ".claude/plugins/seo-tools/skills/seo-content-brief/scripts/fetch-serp.py" \
+  "SEED_KEYWORD_HERE" "Vietnam" "vi" "vn" "10" \
+  > "${WORK_DIR}/kw-research-serp.json"
 ```
 
 ---
@@ -108,7 +106,7 @@ import json
 seen = set()
 keywords = []
 
-with open('D:/CLAUDE - LE/kw-research-raw.jsonl', 'r', encoding='utf-8') as f:
+with open('${WORK_DIR}/kw-research-raw.jsonl', 'r', encoding='utf-8') as f:
     for line in f:
         line = line.strip()
         if not line:
@@ -177,7 +175,7 @@ Dựa trên danh sách keywords đã parse, phân loại từng keyword theo tí
 PYTHONIOENCODING=utf-8 python3 -c "
 import json
 
-with open('D:/CLAUDE - LE/kw-research-serp.json', 'r', encoding='utf-8') as f:
+with open('${WORK_DIR}/kw-research-serp.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 results = data.get('organic_results', [])
@@ -226,9 +224,9 @@ Dựa trên template trong `references/keyword-research-template.md`, tạo báo
 ## BƯỚC 9: Dọn Dẹp Temp Files
 
 ```bash
-del "D:\CLAUDE - LE\kw-research-raw.jsonl" 2>nul
-del "D:\CLAUDE - LE\kw-research-serp.json" 2>nul
-del "D:\CLAUDE - LE\kw-research-parsed.txt" 2>nul
+rm -f "${WORK_DIR}/kw-research-raw.jsonl"
+rm -f "${WORK_DIR}/kw-research-serp.json"
+rm -f "${WORK_DIR}/kw-research-parsed.txt"
 ```
 
 ---
